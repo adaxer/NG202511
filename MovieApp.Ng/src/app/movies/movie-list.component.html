@@ -1,0 +1,17 @@
+<div>
+  <mat-list>
+    @for (movie of movies; track movie) {
+    <mat-list-item [routerLink]="['/movie', movie.id]">
+      <span matListItemTitle>{{ movie.description }} </span>
+    </mat-list-item>
+    }
+    @empty {
+    <div>Keine Daten vorhanden</div>
+    }
+  </mat-list>
+@if(canAddMovie()) {
+     <button mat-raised-button color="primary" routerLink="/addmovie" >
+        Neuen Film hinzufügen
+      </button>
+    }
+</div>

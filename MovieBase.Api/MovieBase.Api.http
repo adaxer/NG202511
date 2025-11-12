@@ -1,0 +1,97 @@
+@MovieBase.Api_HostAddress = https://localhost:7267
+@user=admin
+@password=P@$$w0rd1
+@email=admin@notadomain.com
+
+@token=CfDJ8OkUZkuIWstOk-JrlTLcxI6HdOyJsFbfhY_7tbDRYCp4f7CKNk7PmT1VGi2b4Y-qZgDjqRV7sKttvCnjEJJq_XcHED1Ev8HC52tQoj4edwBxCty3twKqCWVg0VIJSmve9U2TZKPAZaOrUxFvRZq1HAvsLTMgSXz1G-iMC6vB7nSkTbFvb9A2SnHgebO-An54SvjsUDg_0rwsCpGdzRchzS51l8BjnVVmVufkccixddQx4FPK4Xn3zg9uifZskSGaXUG_v0CIjHmyqsX94HlQE_s7ZpB9QZCc-kb0BDEYPhNkImcKzjEI0FDjW7zKu03tQle09tEmd3tYjCTsCBcB8RYQGWHU8aaUgs5_7VvuAyDxuO6LmnoLlhPaQObVhUcfdzKspPfK-cA-1oN6wXK1V_I0DqW48RQXM5IdojKXU3hoY94_M29S06eHIjFXYDqXtXW2__qsKDT2N9URK3mRnHlTX6qh5aq1gdLXAATyYk3m7mFS2zZR4Urs0_PJVfhTxZYVtnv5tHuKTmj-Wi3UD_G6sgejgwaFSeK_XvsD5GFpea8yLheFR7buc3FNEuTta28chD6HiTVZ6HAdkGoCsxnujUM137gRa8l7kfGIj7GxiCRFJfq89lqslrlfeD5dr9xt_2y0b9-MVYMgSVQoPfOZ54XbXnESt39L809sgaJV_TcWgzIpeMUZp2VfPGZlZTZz0JY4njjQWZGYoD8pE0s
+
+POST {{MovieBase.Api_HostAddress}}/register
+Content-Type: application/json
+
+{
+  "username": "{{user}}",
+  "password": "{{password}}",
+  "email": "{{email}}"
+}
+
+###
+
+POST {{MovieBase.Api_HostAddress}}/login?useCookies=false
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+###
+
+GET {{MovieBase.Api_HostAddress}}/movies/list/10/5
+Accept: application/json
+
+###
+
+GET {{MovieBase.Api_HostAddress}}/movies/list
+Accept: application/xml
+
+###
+
+GET {{MovieBase.Api_HostAddress}}/movies/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+
+POST {{MovieBase.Api_HostAddress}}/movies
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "id": 0,
+  "title": "Some movie",
+  "director": "Nobody",
+  "released": "1966-11-28"
+}
+###
+
+POST {{MovieBase.Api_HostAddress}}/movies
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "director": "Nobody",
+  "released": "1966-11-28"
+}
+###
+
+DELETE {{MovieBase.Api_HostAddress}}/movies/52
+Accept: application/json
+
+###
+
+PUT {{MovieBase.Api_HostAddress}}/movies
+Content-Type: application/json
+
+{
+  "id": 53,
+  "title": "Updated Name",
+  "director": "Nobody",
+  "released": "1966-11-28"
+}
+###
+
+PATCH {{MovieBase.Api_HostAddress}}/movies/1
+Accept: */*
+Content-Type: application/json-patch+json
+
+[
+  {
+    "op": "add",
+    "path": "/director",
+    "value": "Ridley Scott"
+  }
+]
+
+###
+

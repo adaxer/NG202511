@@ -1,0 +1,14 @@
+.movie-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.success {
+  color: green;
+  margin-top: 1rem;
+}

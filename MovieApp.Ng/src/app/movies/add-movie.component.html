@@ -1,0 +1,47 @@
+<mat-card class="movie-card">
+  <h2>Add Movie</h2>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput name="title" [(ngModel)]="movie.title" required />
+      @if (form.submitted && !movie.title) {
+        <mat-error>Title is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Director</mat-label>
+      <input matInput name="director" [(ngModel)]="movie.director" required />
+      @if (form.submitted && !movie.director) {
+        <mat-error>Director is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Release Date</mat-label>
+      <input
+        matInput
+        name="released"
+        [(ngModel)]="movie.released"
+        required
+      />
+      @if (form.submitted && !movie.released) {
+        <mat-error>Release date is required</mat-error>
+      }
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Add Movie
+    </button>
+  </form>
+
+  @if (success) {
+    <p class="success">Movie successfully added!</p>
+  }
+</mat-card>
