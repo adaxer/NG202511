@@ -1,0 +1,37 @@
+import { Component, OnInit, computed } from '@angular/core';
+import { MovieService } from './movie.service';
+import { MovieInfo } from '../models/movie-info';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { RouterModule } from '@angular/router';
+import { SignalRService } from '../services/signal-r.service';
+import { UserService } from '../user/user.service';
+
+@Component({
+  selector: 'app-movie-list',
+  standalone: true,
+  imports: [MatListModule,MatProgressSpinnerModule,RouterModule],
+  templateUrl: './movie-list.html',
+  styles: ``
+})
+export class MovieList implements OnInit {
+  movies?: MovieInfo[];
+
+  constructor(private service: MovieService, private userService: UserService, private signalR: SignalRService){
+  }
+
+  canAddMovie = computed(() => this.userService.isAuthenticated());
+
+  ngOnInit(): void {
+    this.service.getMoviePage(10, 0).subscribe(page => {
+      console.log(page);
+      this.movies = page.data;
+    });
+
+    this.signalR.moviesChanged.subscribe(()=>{
+      this.service.getMoviePage(1,1).subscribe(p=> {
+        console.log(`Now there are ${p.totalCount} Movies in the database`);
+      })
+    })
+  }
+}
